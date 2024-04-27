@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Start Page</title>
+        <title>Log In</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="CSS/loginstyle.css" type="text/css" rel="stylesheet" /><!-- connected to css file -->
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <!-- get user username and password to validate in login_authen java file -->
+        <!-- use css to create a log in box in the middle of the screen -->
+        <div id="loginbox">
+            
+            <form action="Login_authen" method="post">
+                <!-- style username input  in css-->
+                <label id="usernamebox">Username:<input type="text" name="username" required="required" /></label><!-- input username -->
+                <br />
+                <!-- stye password input in css -->
+                <label id="passwordbox">Password:<input type="password" name="password" required="required" /> </label><!--<!-- input password -->
+                <br /> 
+                <input type="submit" value="Log In" id="submitbox"/><!-- Submit username and password -->
+            </form>
+            
+        </div>
+        
     </body>
 </html>
