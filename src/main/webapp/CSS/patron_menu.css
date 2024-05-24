@@ -1,0 +1,44 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : May 8, 2024, 12:47:42 PM
+    Author     : bryan
+*/
+.headerbox{
+    background-color: hsl(47, 46%, 62%);
+    height: 120px;
+    border-bottom: 5px solid hsl(47, 46%, 33%);
+    position: relative;
+    margin: 0;
+}
+html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.lowerbodybox{
+    position: relative;
+    background-color: hsl(46, 46%, 89%);
+    height: 100%;
+    margin: 0;
+}
+.pageholderbox{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background-color: hsl(47, 46%, 91%);
+    box-shadow: 2px 2px 0px 5px hsl(47, 46%, 33%);
+}
+#homelink{
+    position: absolute;
+    bottom: 10px;
+    left: 50px;
+    width: 30px;
+    color: white;
+}
+
