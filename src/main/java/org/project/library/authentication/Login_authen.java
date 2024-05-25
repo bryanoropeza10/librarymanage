@@ -59,7 +59,7 @@ public class Login_authen extends HttpServlet {
             if(result.next()){
                 //patron has has logged in and has been validated
                 //code will allow user to access features
-                RequestDispatcher rd = request.getRequestDispatcher("/view_patron_info/index.html");
+                RequestDispatcher rd = request.getRequestDispatcher("/view_patron_info/index.jsp");
                 rd.forward(request, response);
             }else{
                 //if no result was found on the patron table then it will check 
@@ -67,13 +67,16 @@ public class Login_authen extends HttpServlet {
                 st = connect.prepareStatement("SELECT Username, Password "
                     + "From staffinformation "
                     + "WHERE Username=? AND Password=? ");
+                st.setString(1, username);
+                st.setString(2, password);
                 result = st.executeQuery();
                 if(result.next()){
                     //send staff to staff page
                     response.sendRedirect("");
                 }else{
                     //this code will display message that username and password is not valid
-                    request.getRequestDispatcher("/index.html").forward(request, response);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/login_info/index.jsp");
+                    dispatcher.forward(request, response);
                 }
             }
             connect.close();

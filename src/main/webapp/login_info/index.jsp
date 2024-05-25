@@ -1,9 +1,16 @@
+<%-- 
+    Document   : index
+    Created on : May 24, 2024, 11:20:56 PM
+    Author     : bryan
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Log In Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="../CSS/loginstyle.css" type="text/css" rel="stylesheet" /><!-- connected to css file -->
+        <link href="/LibraryManage/CSS/loginstyle.css" type="text/css" rel="stylesheet" /><!-- connected to css file -->
     </head>
     <body>
         <!-- get user username and password to validate in login_authen java file -->
@@ -11,8 +18,8 @@
         <div class="outloginbox">
             <div>
                 <center> 
-                    <p>Don't have an Account? <a href="createAccount.html" class="linkfile">Create Account </a> </p> 
-                    <form action="/LibraryManage/login_authen" method="post" >
+                    <p>Don't have an Account? <a href="<%= request.getContextPath() %>/login_info/createAccount.jsp" class="linkfile">Create Account </a> </p> 
+                    <form action="<%= request.getContextPath() %>/login_authen" method="post" >
                     <!-- style username input  in css-->
                     <label><input placeholder="Username" type="text" name="username" id="usernamebox"/></label><!-- input username -->
                     <br />
@@ -20,7 +27,7 @@
                     <label><input placeholder="Pasword" type="password" name="password" id="passwordbox"/> </label><!--<!-- input password -->
                     <br /> 
                     <label><input type="submit" value="Log In" class="submitbox"/></label><!-- Submit username and password -->
-                    <p><a href="recoverLogin.html" class="linkfile" >Recover Password</a></p>
+                    <p><a href="<%= request.getContextPath() %>/login_info/recoverLogin.jsp" class="linkfile" >Recover Password</a></p>
                     </form>
                 </center>
             </div><!-- its for the inside box that handles the position -->
@@ -28,3 +35,4 @@
         
     </body>
 </html>
+
