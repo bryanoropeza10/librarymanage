@@ -15,12 +15,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background-color: hsl(46, 46%, 89%);
     border-radius: 20px;
     position: relative;
-    font-size: 14px
+    font-size: 18px
 }
 
 /* Adjusted styling for the inner boxes */
-#usernamebox,
-#passwordbox{
+.usernamebox,
+.passwordbox{
     margin: 10px auto; /* Center the boxes horizontally */
     width: 70%; /* Set a width for the inner boxes */
     font-size: 18px;
@@ -61,4 +61,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 #addressfield, #emailfield, #phonefield, #recoveremail{
     width: 300px;
+}
+.hidden{
+    display:none;
+}
+
+.backbox{
+    border: 2px solid hsla(81, 0%, 47%, 1);
+    border-radius: 10px 10px 10px 10px;
+    margin: 10px auto;
+    width: 15%;
+    font-size: 18px;
+    position: absolute;
+    left: 5%;
+    top: 5%;
+}
+.backbox:hover{
+    background-color: hsla(81, 0%, 62%, 1);
+    color: white;
 }

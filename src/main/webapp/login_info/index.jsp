@@ -21,10 +21,10 @@
                     <p>Don't have an Account? <a href="<%= request.getContextPath() %>/login_info/createAccount.jsp" class="linkfile">Create Account </a> </p> 
                     <form action="<%= request.getContextPath() %>/login_authen" method="post" >
                     <!-- style username input  in css-->
-                    <label><input placeholder="Username" type="text" name="username" id="usernamebox"/></label><!-- input username -->
+                    <label><input placeholder="Username" type="text" name="username" class="usernamebox"/></label><!-- input username -->
                     <br />
                     <!-- stye password input in css -->
-                    <label><input placeholder="Pasword" type="password" name="password" id="passwordbox"/> </label><!--<!-- input password -->
+                    <label><input placeholder="Pasword" type="password" name="password" class="passwordbox"/> </label><!--<!-- input password -->
                     <br /> 
                     <label><input type="submit" value="Log In" class="submitbox"/></label><!-- Submit username and password -->
                     <p><a href="<%= request.getContextPath() %>/login_info/recoverLogin.jsp" class="linkfile" >Recover Password</a></p>
