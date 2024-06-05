@@ -16,11 +16,16 @@
     <body>
         <div class="outloginbox">
             <center>
-                <form action="Recover_login" method="post"><!-- recover password for login -->
-                    <h1>Forgot Your Password?</h1>
+                <form action="/LibraryManage/recover_login" method="post"><!-- recover password for login -->
+                    <c:if test="${not empty errorMessage}">
+                        <div class="error-message">
+                            ${errorMessage}
+                        </div>
+                    </c:if>
+                    <h1 class="headertext">Forgot Your Password?</h1>
                         <p id="recoverParagraph">No problem we will send you an email message with a code.<br />
                         Just enter the code into the prompt and reset your password.</p>
-                    <input type="email" class="createField" id="recoveremail" placeholder="Email" required="required" />
+                    <input type="email" class="createField" id="recoveremail" placeholder="Email" required="required" name="email"/>
                     <input type="submit" class="submitbox" value="Submit" />
                 </form>
             </center>

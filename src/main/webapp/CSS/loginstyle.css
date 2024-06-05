@@ -27,16 +27,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     
 }
 /*log in button mod */
-.submitbox{
+.submitbox, .backbox, .buttonlink{
     border: 2px solid hsla(81, 0%, 47%, 1);
     border-radius: 10px 10px 10px 10px;
     margin: 10px auto;
+    font-weight: bold;
     width: 70%;
     font-size: 18px;
 }
-.submitbox:hover{
-    background-color: hsla(81, 0%, 62%, 1);
+.submitbox:hover, .backbox:hover, .buttonlink:hover{
+    background-color: hsl(197, 10%, 87%);;
+    box-shadow: 2px 2px black;
     color: white;
+}
+.linkfile{
+    text-decoration: none;
 }
 .linkfile:hover{
     color: darkblue;
@@ -62,21 +67,58 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 #addressfield, #emailfield, #phonefield, #recoveremail{
     width: 300px;
 }
+#recoveremail{
+    margin-bottom: 20px;
+}
 .hidden{
     display:none;
 }
 
 .backbox{
-    border: 2px solid hsla(81, 0%, 47%, 1);
-    border-radius: 10px 10px 10px 10px;
-    margin: 10px auto;
     width: 15%;
     font-size: 18px;
     position: absolute;
     left: 5%;
     top: 5%;
+    background-color: hsl(213, 24%, 93%);
 }
-.backbox:hover{
-    background-color: hsla(81, 0%, 62%, 1);
-    color: white;
+.buttonlink{
+    width: 50%;
+    display: block;
+    background-color: hsl(213, 24%, 93%);
+    text-decoration: none;
+    color: black;
+}
+.genderlist{
+    width: 15%;
+    background-color: hsl(46, 46%, 89%);
+}
+.genderlist:focus{
+    color: darkblue;
+    background-color: white;
+}
+.error-message{
+    color: red;
+    font-weight: bold;
+}
+.numbersfield{
+    width: 10%;
+    display: inline;
+    text-align: center;
+    font-size: 1.5em;
+    margin-right: 5px;
+    margin-bottom: 20px;
+}
+input[type="number"]{
+    -moz-appearance: textfield;
+}
+#resendlink{
+    position: absolute;
+    bottom: 10%;
+    width: 20%;
+    right: 40%;
+}
+.headertext{
+    margin-top: 5px;
+    margin-bottom: 30px;
 }

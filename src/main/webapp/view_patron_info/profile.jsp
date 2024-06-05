@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : May 25, 2024, 12:08:58 AM
+    Document   : profile
+    Created on : May 29, 2024, 10:44:30 PM
     Author     : bryan
 --%>
 
@@ -8,9 +8,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Patron Home window</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>User Profile Page</title>
         <link rel="stylesheet" href="/LibraryManage/CSS/patron_menu.css" type="text/css" />
     </head>
     <body>

@@ -19,7 +19,7 @@
             <div>
                 <center> 
                     <p>Don't have an Account? <a href="<%= request.getContextPath() %>/login_info/createAccount.jsp" class="linkfile">Create Account </a> </p> 
-                    <form action="<%= request.getContextPath() %>/login_authen" method="post" >
+                    <form action="/LibraryManage/login_authen" method="post" >
                     <!-- style username input  in css-->
                     <label><input placeholder="Username" type="text" name="username" class="usernamebox"/></label><!-- input username -->
                     <br />
