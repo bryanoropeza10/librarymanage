@@ -15,10 +15,10 @@
     </head>
     <body>
         <div class="headerbox">
-            <a href="<%= request.getContextPath() %>/view_patron_info/index.jsp" id="accountlink" class="linkprofile">Account Summary</a>
-            <a href="<%= request.getContextPath() %>/view_patron_info/requests.jsp" id="requestlink" class="linkprofile">Requests</a>
-            <a href="<%= request.getContextPath() %>/view_patron_info/profile.jsp" id="profilelink" class="linkprofile">Profile</a>
-            <a href="<%= request.getContextPath() %>/view_patron_info/confirmLogout.jsp" id="logoutlink" class="linkprofile">Log Out</a>
+            <a href="<%= request.getContextPath() %>/view_patron_info/index.jsp" class="linkprofile">Account Summary</a>
+            <a href="<%= request.getContextPath() %>/request_list" class="linkprofile">Requests</a>
+            <a href="<%= request.getContextPath() %>/view_patron_info/profile.jsp" class="linkprofile">Profile</a>
+            <a href="<%= request.getContextPath() %>/view_patron_info/confirmLogout.jsp" class="linkprofile">Log Out</a>
         </div>
         <div class="lowerbodybox">
             <div class="pageholderbox">

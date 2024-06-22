@@ -27,8 +27,8 @@
                     <p> Already have an Account? <a href="<%= request.getContextPath() %>/login_info/index.jsp" class="linkfile">I Have One</a> </p>
                     <label><input type="text" name="fname" placeholder="First Name" required="required" class="createField"/></label><!-- get patron first and last name -->
                     <label><input type="text" name="lname" placeholder="Last Name" required="required" class="createField" /></label>
-                    <label><select name="gender" class="genderlist"placeholder="Gender"><option value="M">Male</option><!-- get gender from user -->
-                            <option value="F">Female</option><option value="n/a" selected="selected">N/A</option></select>
+                    <label><select name="gender" class="genderlist"placeholder="Gender"><option value="Male">Male</option><!-- get gender from user -->
+                            <option value="Female">Female</option><option value="N/A" selected="selected">N/A</option></select>
                     <label><input type="text" name="address" placeholder="Address" required="required" class="createField" id="addressfield"/></label>
                     <label><input type="email" name="email" placeholder="Email" required="required" class="createField" id="emailfield"/></label>
                     <label><input type="tel" name="phone" placeholder="Cell Phone" required="required" class="createField" id="phonefield"/></label>

@@ -16,19 +16,18 @@
         <div class="outloginbox">
             <center> 
                 <form action="/LibraryManage/patron_create" method="post">
-                <div >
                     <!-- Display error message if it exists -->
                     <c:if test="${not empty errorMessage}">
                     <div class="error-message">
                         ${errorMessage}
                     </div>
                     </c:if>
+                    <a href=""
                     <h1>Create Log in </h1>
                     <label><input type="text" name="username" placeholder="Enter Username: " required="required" class="usernamebox"/></label>
                     <label><input type="text" name="password" placeholder="Enter Password: " required="required" class="passwordbox" /></label>
                     <label><input type="password" name="repassword" placeholder="Re-Enter Password" required="required" class="passwordbox" /></label>
                     <label><input type="submit" value="Submit" class="submitbox"/></label>
-                </div>
                 </form>
             </center>
         </div>

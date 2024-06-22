@@ -6,63 +6,211 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Created on : May 8, 2024, 12:47:42 PM
     Author     : bryan
 */
-.headerbox{
-    background-color: hsl(47, 46%, 62%);
-    height: 120px;
-    border-bottom: 5px solid hsl(47, 46%, 33%);
-    position: relative;
-    margin: 0;
-    font-weight: bold;
-    font-size: 18px;
-}
-html, body{
+/* General styles */
+html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: serif, sans-serif;
 }
-.lowerbodybox{
-    position: relative;
-    background-color: hsl(46, 46%, 89%);
-    height: 100%;
-    margin: 0;
+
+/* Header box styles */
+.headerbox {
+    background-color: hsl(47, 46%, 62%);
+    height: 120px;
+    border-bottom: 5px solid hsl(47, 46%, 33%);
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 18px;
 }
-.pageholderbox{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
-    background-color: hsl(47, 46%, 91%);
-    box-shadow: 2px 2px 0px 5px hsl(47, 46%, 33%);
-    border-radius: 50px 50px;
-}
-.linkprofile{
+
+.linkprofile {
     width: 150px;
     color: white;
     text-decoration: none;
     text-align: center;
 }
-.linkprofile:hover{
+
+.linkprofile:hover {
     color: hsl(47, 46%, 33%);
 }
-#accountlink{
-    position: absolute;
-    bottom: 10px;
-    left: 50px;
+
+/* Main content styles */
+.lowerbodybox {
+    background-color: hsl(46, 46%, 89%);
+    height: calc(100% - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 }
-#logoutlink{
+
+#profilelink-container {
     position: absolute;
-    bottom: 10px;
-    right: 0px;
+    bottom: 100px;
+    right: 50px;
+    
 }
-#requestlink{
-    position: absolute;
-    bottom: 10px;
-    left: 250px;
+
+.pageholderbox {
+    width: 80%;
+    background-color: hsla(30, 8%, 91%, 1);
+    box-shadow: 2px 2px 0px 5px hsl(47, 46%, 33%);
+    border-radius: 50px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 50px; 
+    overflow: hidden;
 }
-#profilelink{
-    position: absolute;
-    bottom: 10px;
-    left: 400px;
+form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+label {
+    width: 48%;
+    margin-bottom: 20px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.namespan, .profilefield, .namesfield, .genderlist {
+    width: 70%;
+}
+.passwordpan{
+    width: 30%;
+    margin-bottom: 20px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#submitprofile {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+
+#submitbox, #submitpasswordbox {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    background-color: hsl(47, 46%, 62%);
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    cursor: pointer;
+    pointer-events: auto;
+}
+#submitbox:hover, #submitpasswordbox:hover{
+    background-color: hsl(47, 46%, 33%);
+}
+#submitpassword{
+    align-items: center;
+    justify-content: center;
+}
+#profilelink {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+
+#proftitle {
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.submit-link {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    background-color: hsl(47, 46%, 62%);
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline from the link */
+    margin-left: auto;
+}
+
+.submit-link:hover {
+    background-color: hsl(47, 46%, 33%);
+}
+#changepasswordTitle{
+    margin: 0 auto;
+    text-align: center;
+}
+#showusernametitle{
+     margin: 0 auto;
+    text-align: center;
+    margin-bottom: 30px;
+    text-decoration: underline;
+}
+.alignbox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.alignbox form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.error-message{
+    color: red;
+    font-weight: bold;
+}
+.confirm-message{
+    color: green;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+#profile-confirm-update{
+    color: green;
+    font-weight: bold;
+    margin-top: 20px;
+}
+#requestTitle{
+    margin: 0 auto;
+    text-align: center;
+}
+#requestPageDiv{
+    width: 100%;
+    padding: 0;
+    text-align: right;
+    margin-top: 20px;
+    font-size: 18px;
+}
+#requestBookButton{
+    border: 2px black solid;
+    background-color: grey;
+    padding: 2px;
+    margin-right: 120px;
+    border-radius: 3px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+#requestBookButton:hover{
+    background-color: lightgray;
+    color: black;
+}
+#bookTable{
+    margin: 20px auto 30px auto;
+    border: 5px black solid;
+    background-color: grey;
+    width: 80%;
 }

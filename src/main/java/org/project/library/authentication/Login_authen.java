@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -38,51 +39,70 @@ public class Login_authen extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException { 
+            throws ServletException, IOException {
         //get user input of their username and password
          String username = request.getParameter("username");
          String password = request.getParameter("password");
-         //response
-         response.setContentType("text/html");
         //connect to library database and try and catch if connection fails
+        Connection cn = null;
+        
          try{
-             Class.forName("com.mysql.cj.jdbc.Driver");
-            String URL_path = "jdbc:mysql://localhost:3306/librarydb";
-            Connection connect = DriverManager.getConnection(URL_path, "root", "root");
-            //set sql statement to check the patron table to validate log in
-            PreparedStatement st = connect.prepareStatement("SELECT Username, Password "
-                    + "From patroninformation "
-                    + "WHERE Username=? AND Password=? ");   
-            st.setString(1, username);
-            st.setString(2, password);
-            ResultSet result = st.executeQuery();
-            if(result.next()){
+             cn = getConnection();
+            if(validateLogin(cn, "patroninformation", username, password, request)){
                 //patron has has logged in and has been validated
                 //code will allow user to access features
-                RequestDispatcher rd = request.getRequestDispatcher("/view_patron_info/index.jsp");
-                rd.forward(request, response);
+                forwardRequest(request, response, "/view_patron_info/index.jsp");
+            }else if(validateLogin(cn,"staffinformation", username, password, request)){
+                //Staff has has logged in and has been validated
+                //code will allow user to access features
+                forwardRequest(request,response,"/LibraryManage/index.jsp");
             }else{
-                //if no result was found on the patron table then it will check 
-                // the staff information table
-                st = connect.prepareStatement("SELECT Username, Password "
-                    + "From staffinformation "
-                    + "WHERE Username=? AND Password=? ");
-                st.setString(1, username);
-                st.setString(2, password);
-                result = st.executeQuery();
-                if(result.next()){
-                    //send staff to staff page
-                    response.sendRedirect("");
-                }else{
-                    //this code will display message that username and password is not valid
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/login_info/index.jsp");
-                    dispatcher.forward(request, response);
-                }
+                request.setAttribute("errorMessage", "Username/Password is incorrect");
+                forwardRequest(request, response, "/login_info/index.jsp");
             }
-            connect.close();
          }catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Login_authen.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }finally{
+             if(cn != null){ try{ cn.close(); }catch(SQLException e){e.printStackTrace();}}
+         }
     }
+    
+     private void forwardRequest(HttpServletRequest request, HttpServletResponse response, String path) throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher(path);
+        rd.forward(request, response);
+    }
+     private Connection getConnection() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url_Path = "jdbc:mysql://localhost:3306/librarydb";
+        return DriverManager.getConnection(url_Path, "root", "root");
+    }
+     private boolean validateLogin(Connection cn, String tableName, String username, String password, HttpServletRequest request)
+             throws SQLException{
+         String querry = "SELECT * "
+                    + "From " + tableName + " "
+                    + "WHERE Username=? AND Password=? ";
+         try(PreparedStatement ps = cn.prepareStatement(querry)){
+             ps.setString(1, username);
+             ps.setString(2, password);
+             try(ResultSet rs = ps.executeQuery()){
+                 if(rs.next()){
+                     Profileobj profobj = new Profileobj();
+                     profobj.setID(rs.getInt("Patron_ID"));
+                     profobj.setFname(rs.getString("First_Name"));
+                     profobj.setLname(rs.getString("Last_Name"));
+                     profobj.setGender(rs.getString("Gender"));
+                     profobj.setEmail(rs.getString("Email"));
+                     profobj.setPhone(rs.getString("Phone"));
+                     profobj.setAddress(rs.getString("Address"));
+                     profobj.setTable(tableName);
+                     profobj.setUsername(username);
+                     HttpSession session = request.getSession(true);
+                     session.setAttribute("profobj", profobj);
+                     return true;
+                 }
+             }
+         }
+         return false;
+     }
 
 }

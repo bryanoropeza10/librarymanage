@@ -9,13 +9,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /* outside log in box with egg shell background */
 .outloginbox {
     width: 450px;
-    padding: 50px;
     border: 2px solid black;
     margin: 100px auto;
     background-color: hsl(46, 46%, 89%);
-    border-radius: 20px;
     position: relative;
-    font-size: 18px
+    font-size: 18px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px 40px;
+    text-align: center;
 }
 
 /* Adjusted styling for the inner boxes */
@@ -27,7 +29,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     
 }
 /*log in button mod */
-.submitbox, .backbox, .buttonlink{
+.buttonlink{
     border: 2px solid hsla(81, 0%, 47%, 1);
     border-radius: 10px 10px 10px 10px;
     margin: 10px auto;
@@ -35,18 +37,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     width: 70%;
     font-size: 18px;
 }
-.submitbox:hover, .backbox:hover, .buttonlink:hover{
+.submitbox:hover, .buttonlink:hover{
     background-color: hsl(197, 10%, 87%);;
     box-shadow: 2px 2px black;
     color: white;
 }
-.linkfile{
-    text-decoration: none;
+.submitbox{
+    border: 2px solid hsla(81, 0%, 47%, 1);
+    border-radius: 10px 10px 10px 10px;
+    margin: 10px auto;
+    font-weight: bold;
+    width: 50%;
+    font-size: 18px;
 }
-.linkfile:hover{
-    color: darkblue;
-}
-
 .createField{
     background-color: hsl(46, 46%, 89%);
     border-top: none;
@@ -72,15 +75,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 .hidden{
     display:none;
-}
-
-.backbox{
-    width: 15%;
-    font-size: 18px;
-    position: absolute;
-    left: 5%;
-    top: 5%;
-    background-color: hsl(213, 24%, 93%);
 }
 .buttonlink{
     width: 50%;
@@ -112,13 +106,52 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 input[type="number"]{
     -moz-appearance: textfield;
 }
-#resendlink{
-    position: absolute;
-    bottom: 10%;
-    width: 20%;
-    right: 40%;
-}
 .headertext{
     margin-top: 5px;
     margin-bottom: 30px;
+}
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.buttonlink {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.buttonlink:hover {
+    transform: translateY(-3px);
+}
+
+.buttonlink:active {
+    transform: translateY(1px);
+}
+
+.buttonlink:first-of-type {
+    background-color: #d9534f; /* Red for YES */
+}
+
+.buttonlink:first-of-type:hover {
+    background-color: #c9302c;
+}
+
+.buttonlink:last-of-type {
+    background-color: #5bc0de; /* Blue for NO */
+}
+
+.buttonlink:last-of-type:hover {
+    background-color: #31b0d5;
+}
+.linkfile{}
+
+#reesendlink{
+    
 }

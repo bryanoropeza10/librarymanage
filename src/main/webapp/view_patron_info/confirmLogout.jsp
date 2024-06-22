@@ -16,7 +16,7 @@
         <div class="outloginbox">
             <center>
                 <h2>Are you sure you want to log out?</h2>
-                <a href="<%= request.getContextPath() %>/logout_session" class="buttonlink">YES</a>
+                <a href="/LibraryManage/logout_session" class="buttonlink">YES</a>
                 <a href="<%= request.getContextPath() %>/view_patron_info/index.jsp" class="buttonlink">NO</a>
             </center>
         </div>

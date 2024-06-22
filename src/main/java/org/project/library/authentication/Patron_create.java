@@ -48,18 +48,16 @@ public class Patron_create extends HttpServlet {
         String repassword = request.getParameter("repassword");
         
         //connections to database
-        Connection con = null;
+        Connection cn = null;
         PreparedStatement st = null;
         ResultSet rt = null;
         
         //connect to database and add new data
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url_Path = "jdbc:mysql://localhost:3306/librarydb";
-            con = DriverManager.getConnection(url_Path, "root", "root");
+            cn = getConnection();
 
             //check if user exist
-            st = con.prepareStatement("SELECT * "
+            st = cn.prepareStatement("SELECT * "
                     + "FROM patroninformation "
                     + "WHERE Username = ?");
             st.setString(1,username);
@@ -69,21 +67,19 @@ public class Patron_create extends HttpServlet {
                 request.setAttribute("errorMessage", 
                         "(Username already exists. Please use a different Username.)");
                 //send user back to createLogin.jsp with a message
-                RequestDispatcher rd = request.getRequestDispatcher("/login_info/createLogin.jsp");
-                rd.forward(request, response);
+                forwardRequest(request,response,"/login_info/createLogin.jsp");
             }else{
                 if(!password.equals(repassword)){
                     //send message that password does not match
                     request.setAttribute("errorMessage", 
                         "(Password does not Match. Please enter a matching password.)");
                     //send user back to the login page to reenter password info
-                    RequestDispatcher rd = request.getRequestDispatcher("/login_info/createLogin.jsp");
-                    rd.forward(request, response); 
+                    forwardRequest(request,response,"/login_info/createLogin.jsp"); 
                 }else{
                     //add login information in the database 
                     //and confirm if password enter is matched
                      //sql to create a new row of data in the patron database
-                    st = con.prepareStatement("INSERT INTO patroninformation "
+                    st = cn.prepareStatement("INSERT INTO patroninformation "
                     + "(First_Name, Last_Name, Address, Email, Phone, Username, Password, Total_Fines, Patron_Status, Overdue_Books, Books_Onhand, Gender) "
                     + "Values "
                     + "(?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -100,25 +96,33 @@ public class Patron_create extends HttpServlet {
                     st.setInt(11, 0);
                     st.setString(12, gender);
                     //send user to the menu if update was succesfull
-                    if(st.executeUpdate() == 1){    
-                        //update the profobj in the session
-                        session.setAttribute("profobj", profobj);
+                    if(st.executeUpdate() == 1){
                         //send user to the menu page
-                        RequestDispatcher rd = request.getRequestDispatcher("/view_patron_info/index.jsp");
-                        rd.forward(request, response);
-                    }else{
-                        System.out.println("failed to update database");
+                        forwardRequest(request,response,"/login_info/index.jsp");
                     }
                 }
             } 
         }catch(ClassNotFoundException | SQLException ex){
             Logger.getLogger(Login_authen.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
-            if(con != null){ try{ con.close(); }catch(SQLException e){e.printStackTrace();}}
+            if(cn != null){ try{ cn.close(); }catch(SQLException e){e.printStackTrace();}}
             if(st != null){ try{ st.close(); }catch(SQLException e){e.printStackTrace();}}
             if(rt != null){ try{ rt.close(); }catch(SQLException e){e.printStackTrace();}}
+            session.invalidate();
         }
         }
         }
     }
+    
+    private Connection getConnection() throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url_Path = "jdbc:mysql://localhost:3306/librarydb";
+        return DriverManager.getConnection(url_Path, "root", "root");
+    }
+    private void forwardRequest(HttpServletRequest request, HttpServletResponse response, String path)
+            throws ServletException, IOException{
+        RequestDispatcher rd = request.getRequestDispatcher(path);
+        rd.forward(request, response);
+    }
+    
 }

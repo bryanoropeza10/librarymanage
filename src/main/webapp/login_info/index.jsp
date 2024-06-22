@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,6 +19,11 @@
         <div class="outloginbox">
             <div>
                 <center> 
+                    <c:if test="${not empty errorMessage}">
+                        <div class="error-message">
+                            ${errorMessage}
+                        </div>
+                    </c:if>
                     <p>Don't have an Account? <a href="<%= request.getContextPath() %>/login_info/createAccount.jsp" class="linkfile">Create Account </a> </p> 
                     <form action="/LibraryManage/login_authen" method="post" >
                     <!-- style username input  in css-->

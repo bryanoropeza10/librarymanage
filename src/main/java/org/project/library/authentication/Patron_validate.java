@@ -50,20 +50,19 @@ public class Patron_validate extends HttpServlet {
         String phone = request.getParameter("phone");
         
         //connections to database
-        Connection con = null;
+        Connection cn = null;
         PreparedStatement st = null;
         ResultSet rt = null;
         
         //connect to database and add new data
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url_Path = "jdbc:mysql://localhost:3306/librarydb";
-            con = DriverManager.getConnection(url_Path, "root", "root");
+            //get connection
+            cn = getConnection();
 
             //check if user exist
-            st = con.prepareStatement("SELECT * "
-                                                            + "FROM patroninformation "
-                                                            + "WHERE Email = ? or phone = ?");
+            st = cn.prepareStatement("SELECT * "
+                    + "FROM patroninformation "
+                    + "WHERE Email = ? or phone = ?");
             st.setString(1,email);
             st.setString(2, phone);
             rt = st.executeQuery();
@@ -72,24 +71,33 @@ public class Patron_validate extends HttpServlet {
                 request.setAttribute("errorMessage", 
                         "(Email or phone number already exists. Please use different information.)");
                 //send user back to reenter info 
-                RequestDispatcher rd = request.getRequestDispatcher("/login_info/createAccount.jsp");
-                rd.forward(request, response);
+                forwardRequest(request, response, "/login_info/createAccount.jsp");
             }else{
                 //create profileobj 
-                Profileobj profobj = new Profileobj(fname, lname, gender, address, email, phone);
+                Profileobj profobj = new Profileobj(fname, lname, gender, address, email, phone, "patroninformation");
                 //create httpsession and store profileobj into session 
                 HttpSession session = request.getSession();
                 session.setAttribute("profobj", profobj);
                 //send user to enter password in the createlogin.jsp
-                RequestDispatcher rd = request.getRequestDispatcher("/login_info/createLogin.jsp");
-                rd.forward(request, response);
+                forwardRequest(request,response,"/login_info/createLogin.jsp");
             }
         }catch(ClassNotFoundException | SQLException ex){
                 Logger.getLogger(Login_authen.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
-            if(con != null){ try{ con.close(); }catch(SQLException e){e.printStackTrace();}}
+            if(cn != null){ try{ cn.close(); }catch(SQLException e){e.printStackTrace();}}
             if(st != null){ try{ st.close(); }catch(SQLException e){e.printStackTrace();}}
             if(rt != null){ try{ rt.close(); }catch(SQLException e){e.printStackTrace();}}
         }
+    }
+    
+    private Connection getConnection() throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url_Path = "jdbc:mysql://localhost:3306/librarydb";
+        return DriverManager.getConnection(url_Path, "root", "root");
+    }
+    private void forwardRequest(HttpServletRequest request, HttpServletResponse response, String path)
+            throws ServletException, IOException{
+        RequestDispatcher rd = request.getRequestDispatcher(path);
+        rd.forward(request, response);
     }
 }

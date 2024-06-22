@@ -48,22 +48,20 @@ public class SecurityCode_validation extends HttpServlet {
                 String email = profobj.getEmail();
                 String numbersfield = getNumbersField(request);
                 Connection cn = null;
-                PreparedStatement ps = null;
-                ResultSet rt = null;
 
                 try {
                     cn = getConnection();
                     if (isEmailInDatabase(cn, email, "patroninformation")) {
-                        handleUserRequest(cn, request, response, session, email, numbersfield, "patroninformation");
+                        handleUserRequest(cn, request, response, session, email, numbersfield, "patroninformation", profobj);
                     } else if (isEmailInDatabase(cn, email, "staffinformation")) {
-                        handleUserRequest(cn, request, response, session, email, numbersfield, "staffinformation");
+                        handleUserRequest(cn, request, response, session, email, numbersfield, "staffinformation", profobj);
                     } else {
                         forwardRequest(request, response, "/login_info/recoverLogin.jsp");
                     }
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Recover_login.class.getName()).log(Level.SEVERE, null, ex);
                 } finally {
-                    closeResources(cn, ps, rt);
+                    if(cn != null){ try{ cn.close(); }catch(SQLException e){e.printStackTrace();}}
                 }
             }
         } else {
@@ -114,18 +112,22 @@ public class SecurityCode_validation extends HttpServlet {
     }
      
       private void handleUserRequest(Connection cn, HttpServletRequest request, HttpServletResponse response, HttpSession session,
-                                   String email, String numbersfield, String tableName) throws SQLException, ServletException, IOException {
+                                   String email, String numbersfield, String tableName, Profileobj profobj) throws SQLException, ServletException, IOException {
         if (numbersfield != null) {
-            String query = "SELECT Recover_Code FROM " + tableName + " WHERE Email = ?";
+            String query = "SELECT * FROM " + tableName + " WHERE Email = ?";
             try (PreparedStatement ps = cn.prepareStatement(query)) {
                 ps.setString(1, email);
                 try (ResultSet rt = ps.executeQuery()) {
                     if (rt.next() && numbersfield.equals(rt.getString("Recover_Code"))) {
+                        profobj.setTable(tableName);
+                        session.setAttribute("profobj", profobj);
                         forwardRequest(request, response, "/login_info/resetPassword.jsp");
                         return;
                     }
                 }
             }
+            request.setAttribute("errorMessage", "Incorrect code! "
+                    + "(Enter security code again, or Click on the link to resend you a different code.)");
             forwardRequest(request, response, "/login_info/recoveryCode.jsp");
         } else {
             updateRecoveryCodeAndSendEmail(cn, session, email, tableName);
@@ -144,30 +146,5 @@ public class SecurityCode_validation extends HttpServlet {
         Profileobj profobj = (Profileobj) session.getAttribute("profobj");
         session.setAttribute("profobj", profobj);
         emailService.sendRecoveryCode(email, recoveryCode);
-    }
-      
-       private void closeResources(Connection cn, PreparedStatement ps, ResultSet rt) {
-        if (cn != null) {
-            try {
-                cn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (ps != null) {
-            try {
-                ps.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (rt != null) {
-            try {
-                rt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
- 
+    } 
 }

@@ -4,6 +4,7 @@
     Author     : bryan
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +16,11 @@
     <body>
        <div class="outloginbox">
            <center>
+               <c:if test="${not empty errorMessage}">
+                   <div class="error-message">
+                       ${errorMessage}
+                   </div>
+               </c:if>
                <h1 class="headertext">Enter Temp Security Code</h1>
                <form action="/LibraryManage/securitycode_validation" method="post">
                    <label><input type="number" class="numbersfield" id="firstNumber" min="0" max="9" maxlength="1" name="1number" oninput="movetoNext(this,'secondNumber')" required="required"/></label><!-- allowing only one number --> 
